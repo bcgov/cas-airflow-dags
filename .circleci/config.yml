@@ -57,9 +57,7 @@ jobs:
       - deploy:
           name: Push application Docker image
           command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              docker login docker.pkg.github.com -u $GITHUB_USERNAME -p $GITHUB_TOKEN
-              TARGET="docker.pkg.github.com/bcgov/cas-airflow-dags/stream-minio:${CIRCLE_SHA1}"
-              docker tag stream-minio "$TARGET"
-              docker push "$TARGET"
-            fi
+            docker login docker.pkg.github.com -u $GITHUB_USERNAME -p $GITHUB_TOKEN
+            TARGET="docker.pkg.github.com/bcgov/cas-airflow-dags/stream-minio:${CIRCLE_SHA1}"
+            docker tag stream-minio "$TARGET"
+            docker push "$TARGET"
