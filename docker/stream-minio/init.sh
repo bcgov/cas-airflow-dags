@@ -5,11 +5,13 @@ if [ -z "$1" ]; then
     exit 0
 fi
 
-TEST="$(curl http://example.com)"
-echo "TEST"
-echo "$TEST"
-echo "USER"
-whoami
+FILE="_tmp.file"
+touch "$FILE"
+
+if [ ! -f "$FILE" ]; then
+    echo "UESR $(whoami) does not have write permissions"
+    exit 1
+fi
 
 if [ -z "$2" ]; then
     FILE_URLS=$(sh bin/wget-spider.sh | awk '{printf "--url=\"%s\" ",$0}')
